@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6316519366759671091}
   - component: {fileID: 478923684149421400}
   - component: {fileID: 3873516632672479532}
+  - component: {fileID: 7439313769366714318}
   m_Layer: 0
   m_Name: SKULL
   m_TagString: Untagged
@@ -179,3 +180,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7439313769366714318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4145260538749526949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b147c25ef2849428c76c7f6f8002d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkelletonController
+  life: 0
+  damage: 0
+  speed: 0
+  playerDetected: 0
+  rb: {fileID: 0}
+  animator: {fileID: 0}
+  player: {fileID: 0}
+  stopDistance: 0
+  attacking: 0
+  estoyMuerto: 0
+  dead: {fileID: 0}
+  hit: {fileID: 0}

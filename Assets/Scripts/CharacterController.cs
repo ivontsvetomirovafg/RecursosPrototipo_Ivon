@@ -9,7 +9,7 @@ public class CharacterControler : MonoBehaviour
     [Header("Vida")]
     [SerializeField] 
     private float maxLife;
-    private float currentLife;
+    public float currentLife;
 
     [Header("Ataque")]
     [SerializeField] 
@@ -26,12 +26,17 @@ public class CharacterControler : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private Vector2 movement;
+    private LevelManager levelManager;
+    private SwordController sword;
+
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         currentLife = maxLife;
+        levelManager = FindObjectOfType<LevelManager>();
+        sword = GetComponentInChildren<SwordController>();
     }
 
     private void Update()
@@ -67,22 +72,10 @@ public class CharacterControler : MonoBehaviour
 
     private void Attack()
     {
-        if (Input.GetButtonDown("Attack1"))
         {
-            animator.SetTrigger("Attack");
-            //AudioManager.Instance.PlaySFX(attackSound);       
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Enemy"))
-        {
-            EnemyController enemy = collision.GetComponent<EnemyController>();
-
-            if (enemy != null)
+            if (Input.GetMouseButtonDown(1))
             {
-                //enemy.TakeDamage(damage);
+                sword.Attack();
             }
         }
     }
