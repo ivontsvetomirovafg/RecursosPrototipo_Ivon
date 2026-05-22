@@ -13,6 +13,7 @@ public class EnemyController : MonoBehaviour
     public float stopDistance;
     public bool attacking;
     public float damage;
+    public bool knockback;
     
     public LevelManager levelManager;
     
@@ -32,6 +33,11 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+        if (knockback == true)
+        {
+            return;
+        }
+
         if (playerDetected == true && attacking == false)
         {
             Vector2 direction = (player.position - transform.position).normalized;
@@ -76,9 +82,7 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<CharacterControler>().TakeDamage(damage);
-
-            /*Vector2 direction = (transform.position - collision.transform.position).normalized;
-            rb.AddForce(direction * 5f, ForceMode2D.Impulse);*/
+            //player.KnockBack(knockback, (player.transform.position - transform.position).normalized);
         }
     }
     private void StartMoving()
@@ -101,5 +105,15 @@ public class EnemyController : MonoBehaviour
         {
             animator.SetTrigger("Hit");
         }
+    }
+    public void KnockBack(float _knockbackForce, Vector2 _direct)
+    {
+        knockback = true; 
+        rb.AddForce(_direct * _knockbackForce);
+        Invoke("KnockbackEnd", 1f);
+    }
+    private void KnockbackEnd()
+    {
+        knockback = false;
     }
 }

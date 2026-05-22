@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterControler : MonoBehaviour
 {
@@ -28,15 +29,20 @@ public class CharacterControler : MonoBehaviour
     private Vector2 movement;
     private LevelManager levelManager;
     private SwordController sword;
+    public bool knockback;
+
+    [SerializeField]
+    private Image lifeBar;
 
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
-        currentLife = maxLife;
         levelManager = FindObjectOfType<LevelManager>();
         sword = GetComponentInChildren<SwordController>();
+
+        UpdateLife();
     }
 
     private void Update()
@@ -88,11 +94,11 @@ public class CharacterControler : MonoBehaviour
         {
             Die();
         }
-        else
-        {
-            animator.SetTrigger("Hit");
-            //AudioManager.Instance.PlaySFX(hitSound);      
-        }
+
+        UpdateLife();
+        animator.SetTrigger("Hit");
+
+        //AudioManager.Instance.PlaySFX(hitSound);      
     }
 
     private void Die()
@@ -101,5 +107,10 @@ public class CharacterControler : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         //AudioManager.Instance.PlaySFX(deathSound);
         enabled = false;
+    }
+
+    public void UpdateLife()
+    {
+        lifeBar.fillAmount = currentLife / maxLife;
     }
 }

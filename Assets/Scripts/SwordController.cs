@@ -29,6 +29,7 @@ public class SwordController : MonoBehaviour
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
+                enemy.KnockBack(knockBackForce, (enemy.transform.position - transform.position).normalized);
             }
         }
         else if (collision.CompareTag("Wood"))
