@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CraftingManager : MonoBehaviour
+public class InventarioUI : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -13,5 +13,4 @@ public class CraftingManager : MonoBehaviour
     {
         
     }
-    //hacer un for para la lista de objetos
 }

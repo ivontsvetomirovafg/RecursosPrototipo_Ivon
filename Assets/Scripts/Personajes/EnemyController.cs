@@ -14,6 +14,10 @@ public class EnemyController : MonoBehaviour
     public bool attacking;
     public float damage;
     public bool knockback;
+    [SerializeField] 
+    private float knockBackForce;
+    public bool isDead = false; 
+    public string itemDrop;
     
     public LevelManager levelManager;
     
@@ -21,6 +25,7 @@ public class EnemyController : MonoBehaviour
     private AudioClip dead;
     [SerializeField]
     private AudioClip hit;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
@@ -34,6 +39,11 @@ public class EnemyController : MonoBehaviour
     public void Update()
     {
         if (knockback == true)
+        {
+            return;
+        }
+
+        if (isDead == true)
         {
             return;
         }
@@ -81,8 +91,9 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<CharacterControler>().TakeDamage(damage);
-            //player.KnockBack(knockback, (player.transform.position - transform.position).normalized);
+            CharacterControler player = collision.gameObject.GetComponent<CharacterControler>();
+            player.TakeDamage(damage);
+            player.KnockBack(knockBackForce, (player.transform.position - transform.position).normalized);
         }
     }
     private void StartMoving()
@@ -98,7 +109,7 @@ public class EnemyController : MonoBehaviour
             //AudioManager.Instance.PlaySFX(dead);
             animator.SetTrigger("Hit");
             int amount = Random.Range(1, 4);
-            levelManager.AddItem("Slime", amount);
+            levelManager.AddItem(itemDrop, amount);
             Destroy(gameObject);
         }
         else

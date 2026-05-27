@@ -85,6 +85,17 @@ public class CharacterControler : MonoBehaviour
             }
         }
     }
+    public void KnockBack(float _knockbackForce, Vector2 _direct)
+    {
+        knockback = true;
+        rb.AddForce(_direct * _knockbackForce);
+        Invoke("KnockbackEnd", 0.5f);
+    }
+
+    private void KnockbackEnd()
+    {
+        knockback = false;
+    }
 
     public void TakeDamage(float damageTaken)
     {

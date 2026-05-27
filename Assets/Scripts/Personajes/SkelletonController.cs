@@ -7,11 +7,15 @@ public class SkelletonController : EnemyController
     void Start()
     {
         base.Start();
-        playerDetected = true;
     }
 
     void Update()
     {
+        if (player == null) 
+        {
+            return;
+        }
+
         CharacterControler character = player.GetComponent<CharacterControler>();
         if (character.currentLife <= 0)
         {
@@ -19,20 +23,22 @@ public class SkelletonController : EnemyController
             animator.SetBool("Attacking", false);
             return;
         }
+        base.Update();
 
-        Vector2 direction = (player.position - transform.position).normalized;
-        rb.linearVelocity = direction * speed;
-
-        // flip
-        if (direction.x > 0)
+        if (playerDetected == true) 
         {
-            transform.eulerAngles = new Vector3(0, 180, 0);
+            Vector2 direction = (player.position - transform.position).normalized;
+            rb.linearVelocity = direction * speed;
+
+            if (direction.x > 0) 
+            {
+                transform.eulerAngles = new Vector3(0, 180, 0);
+            }
+            else 
+            {
+                transform.eulerAngles = Vector3.zero;
+            }
         }
-            
-        else
-        {
-            transform.eulerAngles = Vector3.zero;
-        }        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
