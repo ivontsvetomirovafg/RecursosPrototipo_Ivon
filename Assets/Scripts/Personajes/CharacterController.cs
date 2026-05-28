@@ -8,13 +8,15 @@ public class CharacterControler : MonoBehaviour
     private float speed;
 
     [Header("Vida")]
-    [SerializeField] 
-    private float maxLife;
+    public float maxLife;
     public float currentLife;
 
     [Header("Ataque")]
+    public float damage;
+
+    [Header("Stats")]
     [SerializeField] 
-    private float damage;
+    private float espadaNivel, armaduraNivel, picoNivel;
 
     [Header("Audio")]
     [SerializeField] 

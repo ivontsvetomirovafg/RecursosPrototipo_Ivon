@@ -4,9 +4,9 @@ public class CraftingManager : MonoBehaviour
 {
     public LevelManager levelManager;
     public Receta[] recetas;
+    public CharacterControler player;
 
-    public void Craft(Receta receta) //Es para ver si recibe la receta y si puedes craftearla
-
+    public void Craft(Receta receta) 
     {
         if (levelManager.wood >= receta.woodCost && levelManager.stone >= receta.stoneCost 
         && levelManager.slime >= receta.slimeCost && levelManager.bones >= receta.bonesCost) 
@@ -15,6 +15,9 @@ public class CraftingManager : MonoBehaviour
             levelManager.stone -= receta.stoneCost;
             levelManager.slime -= receta.slimeCost;
             levelManager.bones -= receta.bonesCost;
+
+            player.damage += receta.damageBonus;
+            player.maxLife += receta.lifeBonus;
 
             switch (receta.item)
             {
@@ -52,11 +55,10 @@ public class CraftingManager : MonoBehaviour
                     levelManager.antorcha = true; 
                     break;   
             }
-            Debug.Log("Crafteado: " + receta.itemName);
         }
         else
         {
-            Debug.Log("No tienes suficientes materiales");
+            FindObjectOfType<InventarioUI>().MostrarError();
         }
     }
 }

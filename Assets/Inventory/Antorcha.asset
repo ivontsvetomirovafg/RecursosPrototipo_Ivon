@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d75fa3192792444b8dd8dff4674b3d, type: 3}
   m_Name: Antorcha
   m_EditorClassIdentifier: Assembly-CSharp::Receta
+  damageBonus: 0
+  lifeBonus: 0
+  objectImage: {fileID: 0}
   itemName: Antorcha
   description: Permite ver zonas oscuras
   woodCost: 2
   stoneCost: 0
   slimeCost: 0
   bonesCost: 0
+  item: 

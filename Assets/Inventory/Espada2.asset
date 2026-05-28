@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d75fa3192792444b8dd8dff4674b3d, type: 3}
   m_Name: Espada2
   m_EditorClassIdentifier: Assembly-CSharp::Receta
-  itemName: Espada Nivel 2
-  description: "Hace +10 de da\xF1o"
+  objectImage: {fileID: 0}
+  itemName: SWORD LVL2
+  description: "Hace +10 de da\xF1o."
   woodCost: 0
   stoneCost: 3
   slimeCost: 0
   bonesCost: 0
+  item: 
