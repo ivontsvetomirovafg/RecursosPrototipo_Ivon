@@ -124,4 +124,9 @@ public class CharacterControler : MonoBehaviour
     {
         lifeBar.fillAmount = currentLife / maxLife;
     }
+
+    public void PicoItem()
+    {
+
+    }
 }
