@@ -12,6 +12,7 @@ public class CharacterControler : MonoBehaviour
     public float currentLife;
 
     [Header("Ataque")]
+    public float baseDamage;
     public float damage;
 
     [Header("Stats")]

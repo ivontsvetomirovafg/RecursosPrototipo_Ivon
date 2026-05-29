@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class InventarioUI : MonoBehaviour
 {
@@ -13,8 +14,8 @@ public class InventarioUI : MonoBehaviour
     public Text costeText;
     public Button craftButton;
     public Text nombreBoton;
-    public Text errorText;
-
+    [SerializeField]
+    private GameObject infoPanel;
     private Receta receta;
     private CraftingManager craftingManager;
     [SerializeField]
@@ -32,6 +33,7 @@ public class InventarioUI : MonoBehaviour
             if (animator.GetBool("Closed") == false)
             {
                 animator.SetBool("Closed", true);
+                StartCoroutine(TiempoClose()); 
             }
             else
             {
@@ -39,9 +41,15 @@ public class InventarioUI : MonoBehaviour
             }
         }
     }
+    public IEnumerator TiempoClose()
+    {        
+        yield return new WaitForSeconds(2f);
+        infoPanel.SetActive(false);
+    }
 
     public void MostrarInfo(Receta _receta)
     {
+        craftingManager.errorText.SetActive(false);
         receta = _receta;
         panelCrafteo.SetActive(true);
         nombreText.text = receta.itemName;
@@ -70,15 +78,6 @@ public class InventarioUI : MonoBehaviour
     public void Craftear()
     {
         craftingManager.Craft(receta);
-
-        if (nombreBoton != null)
-        {
-            nombreBoton.text = receta.itemName;
-        }    
-    }
-    public void MostrarError()
-    {
-        errorText.text = "";
     }
 }
 

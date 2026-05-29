@@ -36,7 +36,7 @@ public class SwordController : MonoBehaviour
         {
             Debug.Log("Entra en el trigger");
             Destroy(collision.gameObject);
-            levelManager.wood++;
+            //levelManager.wood++;
         }
     }
 }
