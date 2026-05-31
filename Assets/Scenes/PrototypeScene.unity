@@ -51391,10 +51391,7 @@ MonoBehaviour:
     - cantidad: 0
       imageObj: {fileID: 0}
       nombreObj: 
-  woodText: {fileID: 0}
-  stoneText: {fileID: 0}
-  slimeText: {fileID: 0}
-  bonesText: {fileID: 0}
+  textos: []
   imageInventory: []
   todosObjetos:
   - {fileID: 11400000, guid: 38039e478c42fc14caa81d083a82f9f0, type: 2}

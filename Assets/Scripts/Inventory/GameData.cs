@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
+public class Recursos
+{
+    public int cantidad;
+    public Sprite imageObj;
+    public string nombreObj;
+}
+
+[Serializable]
 public class GameData
 {
     [Header("Crafteos")]
