@@ -12,9 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d75fa3192792444b8dd8dff4674b3d, type: 3}
   m_Name: Espada3
   m_EditorClassIdentifier: Assembly-CSharp::Receta
+  damageBonus: 10
+  lifeBonus: 0
+  objectImage: {fileID: 0}
   itemName: Espada Nivel 3
   description: "Hace +15 de da\xF1o"
   woodCost: 0
   stoneCost: 5
   slimeCost: 2
   bonesCost: 0
+  siguienteNivel: {fileID: 11400000, guid: 9afb88c28b5881a47ad81ec9599a50fc, type: 2}
+  item: 0

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CraftingManager : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class CraftingManager : MonoBehaviour
         if (TieneRecursos(receta))
         {
             RestarRecursos(receta);
+            if (receta.item == 0)
+            {
+                levelManager.slotPico.SetActive(true);
+                levelManager.slotPico.GetComponent<Image>().sprite = receta.objectImage;
+            }
             player.damage += receta.damageBonus;
             player.maxLife += receta.lifeBonus;
             errorText.SetActive(false);

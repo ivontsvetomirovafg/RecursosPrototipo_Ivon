@@ -12,9 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d75fa3192792444b8dd8dff4674b3d, type: 3}
   m_Name: Armadura3
   m_EditorClassIdentifier: Assembly-CSharp::Receta
+  damageBonus: 0
+  lifeBonus: 10
+  objectImage: {fileID: 0}
   itemName: 'Armadura Nivel 1 '
   description: Te da +15 de vida
   woodCost: 0
   stoneCost: 2
   slimeCost: 4
   bonesCost: 8
+  siguienteNivel: {fileID: 0}
+  item: 0

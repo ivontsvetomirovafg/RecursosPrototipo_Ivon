@@ -12,9 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d75fa3192792444b8dd8dff4674b3d, type: 3}
   m_Name: Pico1
   m_EditorClassIdentifier: Assembly-CSharp::Receta
+  damageBonus: 0
+  lifeBonus: 0
+  objectImage: {fileID: 21300000, guid: b63dd35cd6d20d743b1098dca3d329d8, type: 3}
   itemName: Pico Nivel 1
   description: Permite romper rocas
   woodCost: 3
   stoneCost: 0
   slimeCost: 1
   bonesCost: 0
+  siguienteNivel: {fileID: 11400000, guid: 9c53993c31f3ab54997305f857c6cc13, type: 2}
+  item: 0

@@ -24,6 +24,7 @@ public class InventarioUI : MonoBehaviour
     void Start()
     {
         craftingManager = FindObjectOfType<CraftingManager>();
+        animator.SetBool("Closed", true);
     }
 
     void Update()
@@ -77,7 +78,16 @@ public class InventarioUI : MonoBehaviour
 
     public void Craftear()
     {
+        if (receta == null) 
+        {
+            return;
+        }
         craftingManager.Craft(receta);
+
+        if (receta.siguienteNivel != null)
+        {
+            MostrarInfo(receta.siguienteNivel);
+        }
     }
 }
 

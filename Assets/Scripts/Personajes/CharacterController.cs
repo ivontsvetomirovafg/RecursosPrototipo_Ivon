@@ -17,7 +17,9 @@ public class CharacterControler : MonoBehaviour
 
     [Header("Stats")]
     [SerializeField] 
-    private float espadaNivel, armaduraNivel, picoNivel;
+    private float espadaNivel;
+    private float armaduraNivel;
+    private float picoNivel;
 
     [Header("Audio")]
     [SerializeField] 
@@ -32,6 +34,7 @@ public class CharacterControler : MonoBehaviour
     private Vector2 movement;
     private LevelManager levelManager;
     private SwordController sword;
+    public GameObject pico;
     public bool knockback;
 
     [SerializeField]
@@ -40,6 +43,7 @@ public class CharacterControler : MonoBehaviour
 
     private void Start()
     {
+        damage = baseDamage;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         levelManager = FindObjectOfType<LevelManager>();
@@ -81,8 +85,13 @@ public class CharacterControler : MonoBehaviour
 
     private void Attack()
     {
+        if (Input.GetMouseButtonDown(1))
         {
-            if (Input.GetMouseButtonDown(1))
+            if (pico.activeSelf == true)
+            {
+                pico.GetComponent<PicoController>().Attack();
+            }
+            else
             {
                 sword.Attack();
             }

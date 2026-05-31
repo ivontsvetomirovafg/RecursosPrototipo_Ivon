@@ -17,6 +17,9 @@ public class Receta : ScriptableObject
     public int stoneCost;
     public int slimeCost;
     public int bonesCost;
+    
+    [Header("Siguiente nivel")]
+    public Receta siguienteNivel;
 
     public int item;
 }

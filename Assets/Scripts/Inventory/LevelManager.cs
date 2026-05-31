@@ -13,6 +13,7 @@ public class LevelManager : MonoBehaviour
 
     [Header("Crafteos")]
     public List<Receta> todosObjetos;
+    public GameObject slotPico;
 
     public void AddItem(string itemName, int amount)
     {
@@ -45,7 +46,7 @@ public class LevelManager : MonoBehaviour
                 imageInventory[i].SetActive(true);
                 imageInventory[i].GetComponent<Image>().sprite = gameData.recursos[i].imageObj;
                 textos[i].gameObject.SetActive(true);
-                textos[i].text = gameData.recursos[i].cantidad.ToString();
+                textos[i].text = "x" + gameData.recursos[i].cantidad.ToString();
             }
         }
     }
