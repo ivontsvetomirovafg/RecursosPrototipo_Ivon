@@ -22,4 +22,4 @@ MonoBehaviour:
   slimeCost: 0
   bonesCost: 3
   siguienteNivel: {fileID: 11400000, guid: d419dee14f8b6cb468b67dedb68c7ee9, type: 2}
-  item: 0
+  item: 2

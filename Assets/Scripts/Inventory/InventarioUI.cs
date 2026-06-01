@@ -5,7 +5,6 @@ using System.Collections;
 
 public class InventarioUI : MonoBehaviour
 {
-    [Header("Panel")]
     public GameObject panelCrafteo;
 
     [Header("Info del item seleccionado")]
@@ -18,12 +17,20 @@ public class InventarioUI : MonoBehaviour
     private GameObject infoPanel;
     private Receta receta;
     private CraftingManager craftingManager;
+    private LevelManager levelManager;
     [SerializeField]
     private Animator animator;
+
+    [Header("Recetas iniciales")]
+    public Receta recetaEspadaInicial;
+    public Receta recetaArmaduraInicial;
+    public Receta recetaPicoInicial;
+    
 
     void Start()
     {
         craftingManager = FindObjectOfType<CraftingManager>();
+        levelManager = FindObjectOfType<LevelManager>();
         animator.SetBool("Closed", true);
     }
 
@@ -75,6 +82,29 @@ public class InventarioUI : MonoBehaviour
         }
         costeText.text = coste;
     }
+    /*public void MostrarEspada()
+    {
+    if (levelManager.espadaActual != null)
+        MostrarInfo(levelManager.espadaActual);
+    else
+        MostrarInfo(recetaEspadaInicial);
+}
+
+public void MostrarPico()
+{
+    if (levelManager.picoActual != null)
+        MostrarInfo(levelManager.picoActual);
+    else
+        MostrarInfo(recetaPicoInicial);
+}
+
+public void MostrarArmadura()
+{
+    if (levelManager.armaduraActual != null)
+        MostrarInfo(levelManager.armaduraActual);
+    else
+        MostrarInfo(recetaArmaduraInicial);
+}*/
 
     public void Craftear()
     {
@@ -82,9 +112,10 @@ public class InventarioUI : MonoBehaviour
         {
             return;
         }
-        craftingManager.Craft(receta);
+        
+        bool exito = craftingManager.Craft(receta);
 
-        if (receta.siguienteNivel != null)
+        if (exito == true && receta.siguienteNivel != null)
         {
             MostrarInfo(receta.siguienteNivel);
         }

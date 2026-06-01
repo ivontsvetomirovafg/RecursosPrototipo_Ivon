@@ -21,4 +21,5 @@ MonoBehaviour:
   stoneCost: 0
   slimeCost: 0
   bonesCost: 0
-  item: 
+  siguienteNivel: {fileID: 0}
+  item: 5

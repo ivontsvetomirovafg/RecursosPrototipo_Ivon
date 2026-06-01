@@ -9,12 +9,52 @@ public class LevelManager : MonoBehaviour
 
     [Header("UI")]
     public Text[] textos;
-    public GameObject[] imageInventory;
+    public GameObject[] imageInventory;    
+    [SerializeField]
+    private GameObject panelPausa;
+    [SerializeField]
+    private Text espadaText;
+    [SerializeField]
+    private Text armaduraText;
+    [SerializeField]
+    private Text picoText; 
 
     [Header("Crafteos")]
     public List<Receta> todosObjetos;
     public GameObject slotPico;
 
+    [Header("Niveles")]
+    public Receta picoActual;
+    public Receta espadaActual;
+    public Receta armaduraActual;
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Pause();
+        }
+    }
+    public void Pause()
+    {
+        if (panelPausa.activeInHierarchy == false)
+        {
+            panelPausa.SetActive(true);
+            ActualizarStats();
+            Time.timeScale = 0;
+        }
+        else
+        {
+            panelPausa.SetActive(false);
+            Time.timeScale = 1;
+        }
+    }
+    private void ActualizarStats()
+    {
+        espadaText.text = "LVL " + espadaActual.itemName;
+        armaduraText.text = "LVL " + armaduraActual.itemName;
+        picoText.text = "LVL " + picoActual.itemName;
+    }
     public void AddItem(string itemName, int amount)
     {
         for (int i = 0; i < gameData.recursos.Length; i++)

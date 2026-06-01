@@ -8,7 +8,7 @@ public class CraftingManager : MonoBehaviour
     public CharacterControler player;
     public GameObject errorText;
 
-    public void Craft(Receta receta)
+    public bool Craft(Receta receta)
     {
         if (TieneRecursos(receta))
         {
@@ -17,14 +17,26 @@ public class CraftingManager : MonoBehaviour
             {
                 levelManager.slotPico.SetActive(true);
                 levelManager.slotPico.GetComponent<Image>().sprite = receta.objectImage;
-            }
+                levelManager.picoActual = receta;
+            }    
+            else if (receta.item == 1)
+            {
+                levelManager.espadaActual = receta;
+            }     
+            else if (receta.item == 2)
+            {
+                levelManager.armaduraActual = receta;
+            }         
+        
             player.damage += receta.damageBonus;
             player.maxLife += receta.lifeBonus;
             errorText.SetActive(false);
+            return true; 
         }
         else
         {
             errorText.SetActive(true);
+            return false; 
         }
     }
 
