@@ -17,9 +17,4 @@ public class GameData
     public List<Receta> inventarioUsuario;
     [Header("Recursos")]
     public Recursos[] recursos;
-
-    [Header("Niveles actuales")]
-    public Receta espadaActual;
-    public Receta armaduraActual;
-    public Receta picoActual;
 }

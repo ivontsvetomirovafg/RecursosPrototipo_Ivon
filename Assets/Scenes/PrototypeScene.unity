@@ -25013,9 +25013,6 @@ MonoBehaviour:
   nombreBoton: {fileID: 2039554097}
   infoPanel: {fileID: 483326383}
   animator: {fileID: 1899659541}
-  recetaEspadaInicial: {fileID: 0}
-  recetaArmaduraInicial: {fileID: 0}
-  recetaPicoInicial: {fileID: 0}
 --- !u!4 &421492210
 Transform:
   m_ObjectHideFlags: 0
@@ -52492,9 +52489,6 @@ MonoBehaviour:
     - cantidad: 0
       imageObj: {fileID: -7478443804371902213, guid: a78a1fe41b6f40542934b831cd2fe84b, type: 3}
       nombreObj: Bones
-    espadaActual: {fileID: 0}
-    armaduraActual: {fileID: 0}
-    picoActual: {fileID: 0}
   textos:
   - {fileID: 85188780}
   - {fileID: 1886619559}

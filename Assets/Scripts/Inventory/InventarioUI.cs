@@ -21,12 +21,7 @@ public class InventarioUI : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
-    [Header("Recetas iniciales")]
-    public Receta recetaEspadaInicial;
-    public Receta recetaArmaduraInicial;
-    public Receta recetaPicoInicial;
     
-
     void Start()
     {
         craftingManager = FindObjectOfType<CraftingManager>();
@@ -82,37 +77,12 @@ public class InventarioUI : MonoBehaviour
         }
         costeText.text = coste;
     }
-    /*public void MostrarEspada()
-    {
-    if (levelManager.espadaActual != null)
-        MostrarInfo(levelManager.espadaActual);
-    else
-        MostrarInfo(recetaEspadaInicial);
-}
-
-public void MostrarPico()
-{
-    if (levelManager.picoActual != null)
-        MostrarInfo(levelManager.picoActual);
-    else
-        MostrarInfo(recetaPicoInicial);
-}
-
-public void MostrarArmadura()
-{
-    if (levelManager.armaduraActual != null)
-        MostrarInfo(levelManager.armaduraActual);
-    else
-        MostrarInfo(recetaArmaduraInicial);
-}*/
-
     public void Craftear()
     {
         if (receta == null) 
         {
             return;
         }
-        
         bool exito = craftingManager.Craft(receta);
 
         if (exito == true && receta.siguienteNivel != null)
