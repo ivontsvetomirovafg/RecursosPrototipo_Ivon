@@ -21,12 +21,31 @@ public class InventarioUI : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
-    
+    [Header("Buttons")]
+    [SerializeField]
+    private Button picoButton;
+    [SerializeField]
+    private Receta pico1;
+
+    [SerializeField]
+    private Button swordButton;
+    [SerializeField]
+    private Receta sword2;
+
+    [SerializeField]
+    private Button armaduraButton;
+    [SerializeField]
+    private Receta armadura1;
+    [SerializeField]
+    private Receta armadura2;
+
     void Start()
     {
         craftingManager = FindObjectOfType<CraftingManager>();
         levelManager = FindObjectOfType<LevelManager>();
         animator.SetBool("Closed", true);
+
+        picoButton.onClick.AddListener(delegate { MostrarInfo(pico1); }); //Hacer lo mismo para todos 
     }
 
     void Update()
@@ -83,11 +102,14 @@ public class InventarioUI : MonoBehaviour
         {
             return;
         }
-        bool exito = craftingManager.Craft(receta);
+        bool crafteoExitoso = craftingManager.Craft(receta);
 
-        if (exito == true && receta.siguienteNivel != null)
+        if (crafteoExitoso == true && receta.siguienteNivel != null)
         {
-            MostrarInfo(receta.siguienteNivel);
+            MostrarInfo(receta.siguienteNivel); 
+            //switch -->
+            picoButton.onClick.RemoveAllListeners();
+            picoButton.onClick.AddListener(delegate { MostrarInfo(pico1.siguienteNivel); });
         }
     }
 }

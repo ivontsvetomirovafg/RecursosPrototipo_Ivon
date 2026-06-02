@@ -49,7 +49,7 @@ public class LevelManager : MonoBehaviour
             Time.timeScale = 1;
         }
     }
-    private void ActualizarStats()
+    private void ActualizarStats() //CambiarloBien
     {
         espadaText.text = "LVL " + espadaActual.itemName;
         armaduraText.text = "LVL " + armaduraActual.itemName;

@@ -99,6 +99,6 @@ public class CraftingManager : MonoBehaviour
                 recurs.cantidad -= receta.bonesCost;
             }
         }
-        levelManager.AddItem("", 0); // refresca la UI
+        levelManager.AddItem("", 0); // esto refresca la UI
     }
 }
