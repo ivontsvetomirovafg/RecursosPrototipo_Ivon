@@ -39,8 +39,8 @@ public class LevelManager : MonoBehaviour
     {
         if (panelPausa.activeInHierarchy == false)
         {
-            panelPausa.SetActive(true);
             ActualizarStats();
+            panelPausa.SetActive(true);        
             Time.timeScale = 0;
         }
         else
@@ -49,12 +49,37 @@ public class LevelManager : MonoBehaviour
             Time.timeScale = 1;
         }
     }
-    private void ActualizarStats() //CambiarloBien
+
+    private void ActualizarStats() 
     {
-        espadaText.text = "LVL " + espadaActual.itemName;
-        armaduraText.text = "LVL " + armaduraActual.itemName;
-        picoText.text = "LVL " + picoActual.itemName;
+        if (espadaActual == null)
+        {
+            espadaText.text = "MAX LVL";
+        }
+        else
+        {
+            espadaText.text = espadaActual.LVL;
+        }
+
+        if (armaduraActual == null)
+        {
+            armaduraText.text = "MAX LVL";
+        }
+        else
+        {
+            armaduraText.text = armaduraActual.LVL;
+        }
+
+        if (picoActual == null)
+        {
+            picoText.text = "MAX LVL";
+        }
+        else
+        {
+            picoText.text = picoActual.LVL;
+        }
     }
+
     public void AddItem(string itemName, int amount)
     {
         for (int i = 0; i < gameData.recursos.Length; i++)

@@ -5,6 +5,8 @@ public class BossController : MonoBehaviour
 {
     public enum BossStates { Waiting, Jumping, Roar, Death};
 
+    private LevelManager levelManager;
+
     [Header("Variables Generales")]
     [SerializeField]
     private BossStates currentState;
@@ -52,8 +54,15 @@ public class BossController : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         animator = GetComponent<Animator>();
+        levelManager = FindObjectOfType<LevelManager>();
         currentState = BossStates.Waiting;
         ChangeState();
+
+        if (levelManager.espadaActual != null)
+        {
+            bossLife = 1000f;
+            damage = 100;
+        }
     }
     void ChangeState()
     {
@@ -66,6 +75,7 @@ public class BossController : MonoBehaviour
         }
         switch (currentState)
         {
+
             case BossStates.Waiting:
                 StartCoroutine(WaitingCoroutine());
                 break;
@@ -78,11 +88,9 @@ public class BossController : MonoBehaviour
             case BossStates.Death:
                 break;
         }
-
     }
     IEnumerator WaitingCoroutine()
     {
-
         if(transform.position.x < player.position.x)
         {
             transform.eulerAngles = new Vector3(0, 180, 0);
@@ -110,27 +118,28 @@ public class BossController : MonoBehaviour
     }
     IEnumerator JumpCoroutine()
     {
-    animator.SetBool("Attack", true);
-    yield return new WaitForSeconds(timeToJump);
-    Vector2 start = transform.position;
-    Vector2 target = player.position;
+        animator.SetBool("Attack", true);
+        yield return new WaitForSeconds(timeToJump);
+        Vector2 start = transform.position;
+        Vector2 target = player.position;
 
-    float t = 0;
-    while (t < 1)
-    {
-        t += Time.deltaTime * jumpSpeed;
-        float posX = Mathf.Lerp(start.x, target.x, t);
-        float posY = Mathf.Lerp(start.y, target.y, t);
-        posY += 2 * maxJump * t * (1 - t); // arco
-        transform.position = new Vector2(posX, posY);
-        yield return null;
+        float t = 0;
+        while (t < 1)
+        {
+            t += Time.deltaTime * jumpSpeed;
+            float posX = Mathf.Lerp(start.x, target.x, t);
+            float posY = Mathf.Lerp(start.y, target.y, t);
+            posY += 2 * maxJump * t * (1 - t); // arco
+            transform.position = new Vector2(posX, posY);
+            yield return null;
+        }
+
+        animator.SetBool("Attack", false);
+
+        currentState = BossStates.Waiting;
+        ChangeState();
     }
 
-    animator.SetBool("Attack", false);
-
-    currentState = BossStates.Waiting;
-    ChangeState();
-    }
     IEnumerator RoarCoroutine()
     {
         //AudioManager.Instance.PlaySFX(roar);
@@ -164,7 +173,7 @@ public class BossController : MonoBehaviour
     public void TakeDamage(float _damage)
     {
         bossLife -= _damage;
-        if(bossLife <= 0)
+        if (bossLife <= 0)
         {
             //muerto
             //AudioManager.Instance.PlaySFX(dead);

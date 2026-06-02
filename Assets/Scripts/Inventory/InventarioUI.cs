@@ -45,7 +45,9 @@ public class InventarioUI : MonoBehaviour
         levelManager = FindObjectOfType<LevelManager>();
         animator.SetBool("Closed", true);
 
-        picoButton.onClick.AddListener(delegate { MostrarInfo(pico1); }); //Hacer lo mismo para todos 
+        picoButton.onClick.AddListener(delegate { MostrarInfo(pico1); });
+        swordButton.onClick.AddListener(delegate { MostrarInfo(sword2); });
+        armaduraButton.onClick.AddListener(delegate { MostrarInfo(armadura1); });
     }
 
     void Update()
@@ -71,6 +73,7 @@ public class InventarioUI : MonoBehaviour
 
     public void MostrarInfo(Receta _receta)
     {
+        nombreBoton.text = "CRAFT";
         craftingManager.errorText.SetActive(false);
         receta = _receta;
         panelCrafteo.SetActive(true);
@@ -107,11 +110,52 @@ public class InventarioUI : MonoBehaviour
         if (crafteoExitoso == true && receta.siguienteNivel != null)
         {
             MostrarInfo(receta.siguienteNivel); 
-            //switch -->
-            picoButton.onClick.RemoveAllListeners();
-            picoButton.onClick.AddListener(delegate { MostrarInfo(pico1.siguienteNivel); });
+            
+            switch (receta.item)
+            {
+                case 0: // pico nivel 1
+                    levelManager.picoActual = receta;
+                    picoButton.onClick.RemoveAllListeners();
+                    picoButton.onClick.AddListener(delegate { MostrarInfo(pico1.siguienteNivel); });
+                    break;
+                case 1: // espada nivel 2
+                    levelManager.espadaActual = receta;
+                    swordButton.onClick.RemoveAllListeners();
+                    swordButton.onClick.AddListener(delegate { MostrarInfo(sword2.siguienteNivel); });
+                    break;
+                case 2: // armadura nivel 1
+                    levelManager.armaduraActual = receta;
+                    armaduraButton.onClick.RemoveAllListeners();
+                    armaduraButton.onClick.AddListener(delegate { MostrarInfo(armadura1.siguienteNivel); });
+                    break;
+                case 3: // armadura nivel 2
+                    levelManager.armaduraActual = receta;
+                    armaduraButton.onClick.RemoveAllListeners();
+                    armaduraButton.onClick.AddListener(delegate { MostrarInfo(armadura2.siguienteNivel); });
+                    break;
+            }
+        }
+        else if (crafteoExitoso == true && receta.siguienteNivel == null)
+        {
+            nombreBoton.text = "MAX LVL";
+            switch (receta.item) //Substituir nombre "Craft" por "Max LVL"
+            {
+                case 0: 
+                    levelManager.picoActual = null;
+                    picoButton.interactable = false; 
+                    break;
+                case 1: 
+                    levelManager.espadaActual = null;
+                    swordButton.interactable = false; 
+                    break;
+                case 2: 
+                    levelManager.armaduraActual = null;
+                    armaduraButton.interactable = false; 
+                    break;
+            }
         }
     }
 }
+    
 
 

@@ -15,8 +15,9 @@ MonoBehaviour:
   damageBonus: 0
   lifeBonus: 10
   objectImage: {fileID: 0}
-  itemName: 'Armadura Nivel 1 '
-  description: Te da +15 de vida
+  itemName: 'ARMOR LVL3 '
+  description: Te da +15 de vida.
+  LVL: LVL 2
   woodCost: 0
   stoneCost: 2
   slimeCost: 4

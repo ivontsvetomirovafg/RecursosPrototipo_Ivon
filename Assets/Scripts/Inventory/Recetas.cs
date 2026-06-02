@@ -11,6 +11,7 @@ public class Receta : ScriptableObject
     public Sprite objectImage;
     public string itemName;
     public string description;
+    public string LVL;
 
     [Header("Costs")]
     public int woodCost;
@@ -21,5 +22,5 @@ public class Receta : ScriptableObject
     [Header("Siguiente nivel")]
     public Receta siguienteNivel;
 
-    public int item;
+    public int item; 
 }

@@ -16,7 +16,8 @@ MonoBehaviour:
   lifeBonus: 0
   objectImage: {fileID: 0}
   itemName: SWORD LVL2
-  description: "Hace +10 de da\xF1o."
+  description: "+10 de da\xF1o."
+  LVL: LVL 1
   woodCost: 0
   stoneCost: 3
   slimeCost: 0
