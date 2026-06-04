@@ -7,6 +7,7 @@ public class CraftingManager : MonoBehaviour
     public Receta[] recetas;
     public CharacterControler player;
     public GameObject errorText;
+    public PicoController picoController;
 
     public bool Craft(Receta receta)
     {
@@ -18,6 +19,7 @@ public class CraftingManager : MonoBehaviour
                 levelManager.slotPico.SetActive(true);
                 levelManager.slotPico.GetComponent<Image>().sprite = receta.objectImage;
                 levelManager.picoActual = receta;
+                picoController.botonPico.interactable = true;
             }    
             else if (receta.item == 1)
             {

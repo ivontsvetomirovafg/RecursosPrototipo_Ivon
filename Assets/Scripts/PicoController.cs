@@ -3,6 +3,13 @@ using UnityEngine.UI;
 
 public class PicoController : MonoBehaviour
 {
+    [SerializeField] 
+    private Image iconoSlotPico;   
+    [SerializeField] 
+    private Sprite iconoPico;     
+    [SerializeField] 
+    private Sprite iconoEspada;     
+
     public CharacterControler player;
     private bool equipado = false;
     private Animator animator;
@@ -11,6 +18,7 @@ public class PicoController : MonoBehaviour
     [SerializeField]
     private Sprite espadaUI;
     private PiedraGolpes piedras;
+    public Button botonPico;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -40,11 +48,13 @@ public class PicoController : MonoBehaviour
         {
             equipado = true;
             espada.SetActive(false);
+            iconoSlotPico.sprite = iconoEspada; 
         }
         else
         {
             equipado = false;
             espada.SetActive(true);
+            iconoSlotPico.sprite = iconoPico; 
         }
         player.pico.SetActive(equipado);
     }

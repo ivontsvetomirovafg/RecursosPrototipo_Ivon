@@ -204,7 +204,7 @@ MonoBehaviour:
   attacking: 0
   damage: 5
   knockback: 0
-  knockBackForce: 0
+  knockBackForce: 100
   isDead: 0
   itemDrop: Slime
   levelManager: {fileID: 0}

@@ -94,6 +94,9 @@ public class EnemyController : MonoBehaviour
             CharacterControler player = collision.gameObject.GetComponent<CharacterControler>();
             player.TakeDamage(damage);
             player.KnockBack(knockBackForce, (player.transform.position - transform.position).normalized);
+
+            Vector2 direccionRebote = (transform.position - collision.transform.position).normalized;
+            KnockBack(knockBackForce, direccionRebote);
         }
     }
     private void StartMoving()

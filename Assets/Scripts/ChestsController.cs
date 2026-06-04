@@ -61,19 +61,25 @@ private void OpenChest()
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (opened == false)
+        if (collision.CompareTag("Player"))
         {
-            inTrigger = true;
-            iconUI.SetActive(true);
+            if (opened == false)
+            {
+                inTrigger = true;
+                iconUI.SetActive(true);
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (opened == false)
+        if (collision.CompareTag("Player"))
         {
-            inTrigger = false;
-            iconUI.SetActive(false);
+            if (opened == false)
+            {
+                inTrigger = false;
+                iconUI.SetActive(false);
+            }
         }
     }
 }
