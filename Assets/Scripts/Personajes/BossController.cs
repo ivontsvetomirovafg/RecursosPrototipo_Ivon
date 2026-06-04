@@ -60,7 +60,7 @@ public class BossController : MonoBehaviour
 
         if (levelManager.espadaActual != null)
         {
-            bossLife = 1000f;
+            bossLife = 2000f;
             damage = 100;
         }
     }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PicoController : MonoBehaviour
 {
@@ -7,6 +8,9 @@ public class PicoController : MonoBehaviour
     private Animator animator;
     private LevelManager levelManager;
     public GameObject espada;
+    [SerializeField]
+    private Sprite espadaUI;
+    private PiedraGolpes piedras;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,8 +27,11 @@ public class PicoController : MonoBehaviour
     {
         if (collision.CompareTag("Stone"))
         {
-            Destroy(collision.gameObject);
-            levelManager.AddItem("Stone", 1);
+            piedras = collision.GetComponent<PiedraGolpes>(); 
+            if (piedras != null)
+            {
+                piedras.RomperRoca();
+            }            
         }
     }
     public void Seleccionar()
