@@ -22,8 +22,6 @@ public class EnemyController : MonoBehaviour
     public LevelManager levelManager;
     
     [SerializeField]
-    private AudioClip dead;
-    [SerializeField]
     private AudioClip hit;
     
 
@@ -51,7 +49,6 @@ public class EnemyController : MonoBehaviour
         if (playerDetected == true && attacking == false)
         {
             Vector2 direction = (player.position - transform.position).normalized;
-
             rb.linearVelocity = direction * speed;
 
             // Girar sprite
@@ -68,7 +65,6 @@ public class EnemyController : MonoBehaviour
 
             if (distanceSqr <= stopDistance * stopDistance)
             {
-                //AudioManager.Instance.PlaySFX(hit);
                 attacking = true;
                 rb.linearVelocity = Vector2.zero;
             }
@@ -91,6 +87,7 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            AudioManager.Instance.PlaySFX(hit);
             CharacterControler player = collision.gameObject.GetComponent<CharacterControler>();
             player.TakeDamage(damage);
             player.KnockBack(knockBackForce, (player.transform.position - transform.position).normalized);

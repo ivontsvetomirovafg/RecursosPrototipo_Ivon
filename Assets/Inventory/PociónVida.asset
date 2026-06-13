@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: "Poci\xF3nVida"
   m_EditorClassIdentifier: Assembly-CSharp::Receta
   damageBonus: 0
-  lifeBonus: 100
+  lifeBonus: 50
+  PocionVida: 1
+  "PocionDa\xF1o": 0
   objectImage: {fileID: 0}
   itemName: LIFE POTION
-  description: Recupera toda la vida.
+  description: Recupera +50 de vida.
+  LVL: 
   woodCost: 0
   stoneCost: 0
   slimeCost: 3

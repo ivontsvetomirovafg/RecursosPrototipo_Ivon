@@ -208,8 +208,7 @@ MonoBehaviour:
   isDead: 0
   itemDrop: Slime
   levelManager: {fileID: 0}
-  dead: {fileID: 0}
-  hit: {fileID: 0}
+  hit: {fileID: 8300000, guid: e92861fa24b36734684acf4b02e22c61, type: 3}
 --- !u!1 &4251699610555596007
 GameObject:
   m_ObjectHideFlags: 0

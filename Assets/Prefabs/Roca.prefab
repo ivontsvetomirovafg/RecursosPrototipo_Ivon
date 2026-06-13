@@ -154,3 +154,4 @@ MonoBehaviour:
   piedraActual: {fileID: -1030331090, guid: ce3e5ff2c61c2ee42bb15030150bd797, type: 3}
   piedraRomper1: {fileID: -168421969075237668, guid: c9feb4b188b64154e97fbad0410e7af8, type: 3}
   piedraRomper2: {fileID: -1829437986, guid: ce3e5ff2c61c2ee42bb15030150bd797, type: 3}
+  stone: {fileID: 8300000, guid: 731461cfee2031941b65e2e115be63f0, type: 3}

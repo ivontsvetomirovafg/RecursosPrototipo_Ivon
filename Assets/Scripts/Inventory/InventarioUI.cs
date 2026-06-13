@@ -38,11 +38,13 @@ public class InventarioUI : MonoBehaviour
     private Receta armadura1;
     [SerializeField]
     private Receta armadura2;
+    private CharacterControler player;
 
     void Start()
     {
         craftingManager = FindObjectOfType<CraftingManager>();
         levelManager = FindObjectOfType<LevelManager>();
+        player = FindObjectOfType<CharacterControler>();
         animator.SetBool("Closed", true);
 
         picoButton.onClick.AddListener(delegate { MostrarInfo(pico1); });
@@ -51,7 +53,12 @@ public class InventarioUI : MonoBehaviour
     }
 
     void Update()
-    {
+    {    
+        if (player.currentLife <=0)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (animator.GetBool("Closed") == false)
@@ -74,6 +81,7 @@ public class InventarioUI : MonoBehaviour
     public void MostrarInfo(Receta _receta)
     {
         nombreBoton.text = "CRAFT";
+        craftButton.interactable = true;
         craftingManager.errorText.SetActive(false);
         receta = _receta;
         panelCrafteo.SetActive(true);
@@ -106,6 +114,11 @@ public class InventarioUI : MonoBehaviour
             return;
         }
         bool crafteoExitoso = craftingManager.Craft(receta);
+        
+        if (receta.PocionVida == true || receta.PocionDaño == true)
+        {
+            return; 
+        }
 
         if (crafteoExitoso == true && receta.siguienteNivel != null)
         {
@@ -138,7 +151,9 @@ public class InventarioUI : MonoBehaviour
         else if (crafteoExitoso == true && receta.siguienteNivel == null)
         {
             nombreBoton.text = "MAX LVL";
-            switch (receta.item) //Substituir nombre "Craft" por "Max LVL"
+            craftButton.interactable = false; 
+
+            switch (receta.item)
             {
                 case 0: 
                     levelManager.picoActual = null;

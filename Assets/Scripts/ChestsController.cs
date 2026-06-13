@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class ChestsController : MonoBehaviour
 {
-    [SerializeField] private GameObject iconUI;
+    [SerializeField] 
+    private GameObject iconUI;
+    [SerializeField] 
+    private AudioClip chest;
 
     private bool inTrigger;
     private bool opened;
@@ -28,6 +31,7 @@ public class ChestsController : MonoBehaviour
 
 private void OpenChest()
 {
+    AudioManager.Instance.PlaySFX(chest);
     animator.SetTrigger("Open");
     opened = true;
     iconUI.SetActive(false);

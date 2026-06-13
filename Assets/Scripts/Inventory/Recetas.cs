@@ -7,6 +7,10 @@ public class Receta : ScriptableObject
     public float damageBonus;
     public float lifeBonus;
 
+    [Header("Tipo de poción")]
+    public bool PocionVida;
+    public bool PocionDaño;
+
     [Header("Description")]
     public Sprite objectImage;
     public string itemName;

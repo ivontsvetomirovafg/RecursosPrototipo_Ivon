@@ -390,6 +390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChestsController
   iconUI: {fileID: 2918376823090663254}
+  chest: {fileID: 8300000, guid: 25fd56eb56c41214d947aa35dbccef05, type: 3}
 --- !u!1 &5889325910584567695
 GameObject:
   m_ObjectHideFlags: 0

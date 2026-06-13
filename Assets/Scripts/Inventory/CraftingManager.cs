@@ -9,10 +9,16 @@ public class CraftingManager : MonoBehaviour
     public GameObject errorText;
     public PicoController picoController;
 
+    [SerializeField]
+    private AudioClip succes;
+    [SerializeField]
+    private AudioClip error;
+
     public bool Craft(Receta receta)
     {
         if (TieneRecursos(receta))
         {
+            AudioManager.Instance.PlaySFX(succes);
             RestarRecursos(receta);
             if (receta.item == 0)
             {
@@ -29,14 +35,29 @@ public class CraftingManager : MonoBehaviour
             {
                 levelManager.armaduraActual = receta;
             }         
-        
-            player.damage += receta.damageBonus;
-            player.maxLife += receta.lifeBonus;
+            else if (receta.PocionVida)
+            {
+                player.HealLife(receta.lifeBonus);
+            }
+            else if (receta.PocionDaño)
+            {
+                player.PocionDaño(receta.damageBonus, 30f);
+            }
+
+            if (receta.PocionVida == false && receta.PocionDaño == false)
+            {
+                player.baseDamage += receta.damageBonus;
+                player.damage = player.baseDamage;       
+                player.maxLife += receta.lifeBonus;
+                player.UpdateLife();
+                player.UpdateDamage();
+            }                
             errorText.SetActive(false);
             return true; 
         }
         else
         {
+            AudioManager.Instance.PlaySFX(error);
             errorText.SetActive(true);
             return false; 
         }

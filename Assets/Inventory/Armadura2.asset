@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Armadura2
   m_EditorClassIdentifier: Assembly-CSharp::Receta
   damageBonus: 0
-  lifeBonus: 10
+  lifeBonus: 25
+  PocionVida: 0
+  "PocionDa\xF1o": 0
   objectImage: {fileID: 0}
   itemName: ARMOR LVL2
-  description: Te da +15 de vida.
+  description: MAX life = 150.
   LVL: LVL 1
   woodCost: 0
   stoneCost: 0

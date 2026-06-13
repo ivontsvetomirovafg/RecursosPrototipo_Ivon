@@ -31,6 +31,12 @@ public class SwordController : MonoBehaviour
                 enemy.TakeDamage(player.damage);
                 enemy.KnockBack(knockBackForce, (enemy.transform.position - transform.position).normalized);
             }
+            
+            BossController boss = collision.GetComponent<BossController>();
+            if (boss != null)
+            {
+                boss.TakeDamage(player.damage);
+            }
         }
         else if (collision.CompareTag("Wood"))
         {

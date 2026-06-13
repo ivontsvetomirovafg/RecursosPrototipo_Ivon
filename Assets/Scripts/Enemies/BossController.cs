@@ -1,9 +1,10 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class BossController : MonoBehaviour
 {
-    public enum BossStates { Waiting, Jumping, Roar, Death};
+    public enum BossStates { Waiting, Jumping, Roar};
 
     private LevelManager levelManager;
 
@@ -13,13 +14,13 @@ public class BossController : MonoBehaviour
     private Transform player;
     private Animator animator;
     [SerializeField]
-    private float bossLife;
+    private float bossLife = 750;
     [SerializeField]
-    private float damage;
+    private float damage = 25;
     [SerializeField]
     private float knockBackForce;
     [SerializeField]
-    private Sprite muertoSprite;
+    private GameObject puerta; 
 
     [Header ("Waiting")]
     [SerializeField]
@@ -27,7 +28,7 @@ public class BossController : MonoBehaviour
 
     [Header("Jumping")]
     [SerializeField]
-    private float maxJump = 12;
+    private float maxJump = 6;
     [SerializeField]
     private float jumpSpeed;
     [SerializeField]
@@ -45,9 +46,19 @@ public class BossController : MonoBehaviour
     [SerializeField]
     private AudioClip roar;
     [SerializeField]
-    private AudioClip dead;
-    [SerializeField]
     private AudioClip jump;
+    [SerializeField]
+    private AudioClip key;
+
+    [Header("Victory")]
+    [SerializeField]
+    private GameObject panelEnd; 
+    [SerializeField]
+    private Animator end1;
+    [SerializeField]
+    private Animator end2;
+    private bool activado = false;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -56,12 +67,39 @@ public class BossController : MonoBehaviour
         animator = GetComponent<Animator>();
         levelManager = FindObjectOfType<LevelManager>();
         currentState = BossStates.Waiting;
-        ChangeState();
+    }
 
-        if (levelManager.espadaActual != null)
+    void Update()
+    {
+        if (activado == false) 
         {
-            bossLife = 2000f;
-            damage = 100;
+            return;
+        }
+    
+        if (transform.position.x < player.position.x)
+        {
+            transform.eulerAngles = new Vector3(0, 180, 0);
+        }
+        
+        else
+        {
+            transform.eulerAngles = Vector3.zero;
+        }
+        
+}
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") && activado == false)
+        {
+            activado = true;
+            if (levelManager.espadaActual != null)
+            {
+                bossLife = 2000f;
+                damage = 100;
+            }
+            puerta.SetActive(false);
+            ChangeState();
         }
     }
     void ChangeState()
@@ -70,12 +108,10 @@ public class BossController : MonoBehaviour
         if (character.currentLife <= 0)
         {
             animator.SetBool("Attacking", false);
-            animator.SetBool("PlayerDetected", false);
             return;
         }
         switch (currentState)
         {
-
             case BossStates.Waiting:
                 StartCoroutine(WaitingCoroutine());
                 break;
@@ -85,20 +121,10 @@ public class BossController : MonoBehaviour
             case BossStates.Roar:
                 StartCoroutine(RoarCoroutine());
                 break;
-            case BossStates.Death:
-                break;
         }
     }
     IEnumerator WaitingCoroutine()
     {
-        if(transform.position.x < player.position.x)
-        {
-            transform.eulerAngles = new Vector3(0, 180, 0);
-        }
-        else
-        {
-            transform.eulerAngles = Vector3.zero;
-        }
         GetComponent<Rigidbody2D>().linearVelocity= Vector2.zero;
 
         yield return new WaitForSeconds(1);
@@ -118,14 +144,15 @@ public class BossController : MonoBehaviour
     }
     IEnumerator JumpCoroutine()
     {
-        animator.SetBool("Attack", true);
+        animator.SetBool("Attacking", true);
         yield return new WaitForSeconds(timeToJump);
         Vector2 start = transform.position;
         Vector2 target = player.position;
 
         float t = 0;
         while (t < 1)
-        {
+        {        
+            AudioManager.Instance.PlaySFX(jump);
             t += Time.deltaTime * jumpSpeed;
             float posX = Mathf.Lerp(start.x, target.x, t);
             float posY = Mathf.Lerp(start.y, target.y, t);
@@ -134,7 +161,7 @@ public class BossController : MonoBehaviour
             yield return null;
         }
 
-        animator.SetBool("Attack", false);
+        animator.SetBool("Attacking", false);
 
         currentState = BossStates.Waiting;
         ChangeState();
@@ -142,11 +169,9 @@ public class BossController : MonoBehaviour
 
     IEnumerator RoarCoroutine()
     {
-        //AudioManager.Instance.PlaySFX(roar);
-        animator.SetBool("Roar", true);
         yield return new WaitForSeconds(timeToSpawn);
+        AudioManager.Instance.PlaySFX(roar);
         Instantiate(slimeprefab, slimeSpawnPoint.position, slimeSpawnPoint.rotation);
-        animator.SetBool("Roar", false);
         yield return new WaitForSeconds(timeToSpawn);
         
         currentState = BossStates.Waiting;
@@ -175,19 +200,44 @@ public class BossController : MonoBehaviour
         bossLife -= _damage;
         if (bossLife <= 0)
         {
-            //muerto
-            //AudioManager.Instance.PlaySFX(dead);
-            currentState = BossStates.Death;
-            StopAllCoroutines();
-            animator.SetTrigger("Death");
             GetComponent<CapsuleCollider2D>().enabled = false;
-            GetComponent<Rigidbody2D>().gravityScale = 0;
             this.enabled = false;
+
+            panelEnd.SetActive(true);
+            end1.SetTrigger("End");
+            end2.SetTrigger("End");
+            StartCoroutine(Final());
         }
         else
         {
-            //hit
             animator.SetTrigger("Hit");           
         }
+    }
+
+    private IEnumerator Final()
+    {
+        //para que desaparezca el boss
+        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        float duracion = 1.5f;
+        float t = 0;
+        while (t < duracion) 
+        {
+            t += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, t / duracion);
+            sprite.color = new Color(1f, 1f, 1f, alpha);
+            yield return null;
+        }
+
+        AudioManager.Instance.PlaySFX(key);
+        AudioManager.Instance.FadeOutMusic(1.5f);
+        sprite.enabled = false;
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(5f);
+
+        AudioManager.Instance.StopMusic();
+        yield return new WaitForSecondsRealtime(5f);
+
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
     }
 }

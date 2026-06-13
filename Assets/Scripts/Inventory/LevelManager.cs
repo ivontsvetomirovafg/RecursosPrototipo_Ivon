@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -17,7 +19,11 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private Text armaduraText;
     [SerializeField]
-    private Text picoText; 
+    private Text picoText;     
+    [SerializeField]
+    private GameObject panelLoading;
+    [SerializeField]
+    private Animator loading; 
 
     [Header("Crafteos")]
     public List<Receta> todosObjetos;
@@ -27,6 +33,15 @@ public class LevelManager : MonoBehaviour
     public Receta picoActual;
     public Receta espadaActual;
     public Receta armaduraActual;
+
+    [SerializeField]
+    private AudioClip musica;
+
+
+    void Start()
+    {
+        AudioManager.Instance.PlayMusic(musica);
+    }
 
     void Update()
     {
@@ -40,14 +55,47 @@ public class LevelManager : MonoBehaviour
         if (panelPausa.activeInHierarchy == false)
         {
             ActualizarStats();
+            AudioManager.Instance.FadeOutMusic(1.5f);
             panelPausa.SetActive(true);        
             Time.timeScale = 0;
         }
         else
         {
+            AudioManager.Instance.SetMusicVolume(0.4f);
             panelPausa.SetActive(false);
             Time.timeScale = 1;
         }
+    }
+    public void PlayButton()
+    {
+        panelLoading.SetActive(true);
+        loading.SetBool("Load", true);
+        StartCoroutine(Loading());
+    }
+
+    private IEnumerator Loading()
+    {
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(1);
+        yield return new WaitForSeconds(1f);
+        panelLoading.SetActive(false);
+    }
+
+    public void MainMenuButton()
+    {
+        //AudioManager.instance.StopMusic();
+        SceneManager.LoadScene(0);
+        Time.timeScale = 1;
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
+    
+    public void Reiniciar()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void ActualizarStats() 

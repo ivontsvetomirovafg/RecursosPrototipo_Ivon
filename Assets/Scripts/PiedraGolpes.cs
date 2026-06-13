@@ -10,6 +10,9 @@ public class PiedraGolpes : MonoBehaviour
     private Sprite piedraRomper2;
     private LevelManager levelManager;
 
+    [SerializeField] 
+    private AudioClip stone;
+
     void Start()
     {
         levelManager = FindObjectOfType<LevelManager>();
@@ -17,6 +20,13 @@ public class PiedraGolpes : MonoBehaviour
 
     public void RomperRoca()
     {
+        AudioManager.Instance.PlaySFX(stone);
+        if (levelManager.picoActual == null || levelManager.picoActual.LVL == "2")
+        {
+            levelManager.AddItem("Stone", 1);
+            Destroy(gameObject);
+        }
+
         golpesParaRomper--;
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
 

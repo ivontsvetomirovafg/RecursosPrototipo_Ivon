@@ -277,7 +277,7 @@ MonoBehaviour:
   rb: {fileID: 3873516632672479532}
   animator: {fileID: 6316519366759671091}
   player: {fileID: 0}
-  stopDistance: 0.8
+  stopDistance: 0.9
   attacking: 0
   damage: 15
   knockback: 0
@@ -285,5 +285,4 @@ MonoBehaviour:
   isDead: 0
   itemDrop: Bones
   levelManager: {fileID: 0}
-  dead: {fileID: 0}
-  hit: {fileID: 0}
+  hit: {fileID: 8300000, guid: e92861fa24b36734684acf4b02e22c61, type: 3}
